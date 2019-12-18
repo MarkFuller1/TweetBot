@@ -1,0 +1,57 @@
+
+# root the contents of the dir to recurse on 
+getdirs(){
+        base="$1"
+        shift
+
+        while (( $# )); do
+                current="$base/$1"
+                #echo $current
+                #>&2 echo "checking -> $current"
+                if [[ -d $current ]]; then 
+                        if [[ .*"$current".* =~ ".git" ]]; then
+                                >&2 echo found $current
+
+                                status=`git -C $base status`
+
+                                #>&2 echo $status
+                                
+                                if echo $status | grep -Eq "(modified|deleted|added)"; then
+                                       >&2 echo "CHANGES MADE" in $base
+                                fi
+
+                        else
+                                list="$list $current"
+                        fi
+
+                fi
+                shift
+        done
+
+        echo $list
+}
+
+
+recurse(){
+        
+        lis=`ls -A $1`
+        dirs=`getdirs $1 $lis`
+
+        #echo $dirs | tr [:space:] "\n"
+
+        for var in $dirs
+        do
+                if [[ -f $var ]]; then
+                        echo $var
+                fi
+                recurse $var &
+        done
+}
+
+
+echo starting at $HOME/Documents
+recurse $HOME/Documents
+
+sleep 3
+
+

@@ -10,7 +10,11 @@ getdirs(){
                 #>&2 echo "checking -> $current"
                 if [[ -d $current ]]; then 
                         if [[ .*"$current".* =~ ".git" ]]; then
-                                >&2 echo found $current
+                                
+                                if (( $flag == "0"))
+                                then
+                                        >&2 echo $current
+                                fi
 
                                 status=`git -C $base status`
 
@@ -48,8 +52,15 @@ recurse(){
         done
 }
 
+flag=1
 
-echo starting at $HOME/Documents
+for var in $@; do
+        if [[ $1 == "-l" ]]
+        then
+                flag=0
+        fi
+done
+
 recurse $HOME/Documents
 
 sleep 3

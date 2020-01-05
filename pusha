@@ -48,6 +48,7 @@ recurse(){
                 if [[ -f $var ]]; then
                         echo $var
                 fi
+                #echo $var
                 recurse $var &
         done
 }
@@ -61,7 +62,9 @@ for var in $@; do
         fi
 done
 
+echo "Searching for git repos"
 recurse $HOME/Documents
+$SHELL
 
 
 

@@ -3,15 +3,16 @@ import requests
 import sys
 import os
 
-URL = "https://iscaliforniaonfire.com"
+URL = "http://iscaliforniaonfire.com"
 
 def getRecords():
     with open("records") as f:
         return f.read().split(' ', -1)
 
 def writeRecords(current, overall):
+
     f = open("records", "w")
-    f.write(current + " " + overall)
+    f.write(str(current) + " " + str(overall))
     f.close()
 
 def get_api(cfg):
@@ -35,28 +36,36 @@ def tweetText(api):
         records = getRecords()
         print(records)
 
-        current_record = records[0]
-        record = records[1]
+        current_record = int(records[0])
+        record = int(records[1])
 
         raw = requests.get(url = URL)
-        content = raw.content
+        requestData = raw.content
 
-        if "Yes" not in content:
-            print("California is not on fire")
-            text = "California is not on fire"
+        if "Yes" not in str(requestData):
+            print("California is not on 🔥")
+            text = "California is not on 🔥"
 
         else: 
-            print ("California is on fire")
-            text = "California is on fire"
-            current_record = current_record + 1
+            print ("California is on 🔥")
+            text = "California is on 🔥"
+            current_record += 1
+
+
+        if current_record > record:
+            record = current_record
 
         writeRecords(current_record, record)
+
+        text += "\n\nCurrent Streak: " + str(current_record) + " \nRecord: " + str(record)
+        text += "\n\n Can we reach 100!?! OWO 😂😂"
         
     else:
         tweet = ' '.join(sys.argv[1:])
         print(tweet)
         text = tweet
 
+    print(text) 
     api.update_status(status=text)
 
 def main():

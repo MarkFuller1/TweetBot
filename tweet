@@ -7,10 +7,10 @@ if test $# = 0; then
 
 elif [ -f "$1" ]; then
 
-        python /home/mark/Documents/scripts/tweetBot.py -f $1
+        python3 /home/mark/Documents/scripts/tweetBot.py -f $1
 
 else
         
-        python /home/mark/Documents/scripts/tweetBot.py $@
+        python3 /home/mark/Documents/scripts/tweetBot.py $@
 
 fi

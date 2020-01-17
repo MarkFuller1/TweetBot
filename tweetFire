@@ -1,3 +1,0 @@
-res=`python /home/mark/Documents/scripts/tweetFire.py`
-
-tweet $res

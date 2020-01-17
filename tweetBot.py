@@ -58,7 +58,6 @@ def tweetText(api):
         writeRecords(current_record, record)
 
         text += "\n\nCurrent Streak: " + str(current_record) + " \nRecord: " + str(record)
-        text += "\n\n Can we reach 100!?! OWO 😂😂"
         
     else:
         tweet = ' '.join(sys.argv[1:])

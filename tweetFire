@@ -1,3 +1,3 @@
-res=`python tweetFire.py`
+res=`python /home/mark/Documents/scripts/tweetFire.py`
 
 tweet $res

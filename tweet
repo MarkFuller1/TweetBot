@@ -1,1 +1,16 @@
-python /home/mark/Documents/scripts/tweetBot.py $@
+
+#chech to see if there are some perameters
+
+if test $# = 0; then
+
+        echo "you need words"
+
+elif [ -f "$1" ]; then
+
+        python /home/mark/Documents/scripts/tweetBot.py -f $1
+
+else
+        
+        python /home/mark/Documents/scripts/tweetBot.py $@
+
+fi
